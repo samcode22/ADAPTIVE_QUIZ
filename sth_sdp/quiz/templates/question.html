@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load i18n%}
+
+
+
+{% block title %} {{ quiz.title }} {% endblock %}
+{% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
+
+{% block content %}
+
+{% if previous.answers %}
+
+  <p class="muted"><small>{% trans "The previous question" %}:</small></p>
+  <p>{{ previous.previous_question }}</p>
+
+  {% if previous.previous_outcome %}
+	<div class="alert alert-success">
+  {% else %}
+	<div class="alert alert-warning">
+  {% endif %}
+  	  <p><small>
+		{% trans "Your answer was" %} </small>
+		<strong>
+		  {{ previous.previous_outcome|yesno:"correct,incorrect" }}
+		</strong>
+	  </p>
+
+	</div>
+
+	{% include 'correct_answer.html' %}
+
+	<p><strong>{% trans "Explanation" %}:</strong></p>
+	<div class="well " style="background-color: #fcf8e3;">
+	  <p>{{ previous.previous_question.explanation }}</p>
+	</div>
+
+	<hr>
+
+{% endif %}
+
+<br />
+
+{% if question %}
+
+{% if progress %}
+<div style="float: right;">
+{% trans "Question" %} {{ progress.0|add:1 }} {% trans "of" %} {{ progress.1 }}
+</div>
+{% endif %}
+
+<p>
+  <small class="muted">{% trans "Question category" %}:</small>
+  <strong>{{ question.category }}</strong>
+</p>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <script language ="javascript" >
+        var tim;
+       
+        var min = 0;
+        var sec = 30;
+        var f = new Date();
+        function f1() {
+            f2();
+             
+          
+        }
+        function f2() {
+            if (parseInt(sec) > 0) {
+                sec = parseInt(sec) - 1;
+                document.getElementById("showtime").innerHTML = "Your Left Time  is :"+min+" Minutes ," + sec+" Seconds";
+                tim = setTimeout("f2()", 1000);
+            }
+            else {
+                if (parseInt(sec) == 0) {
+                    min = parseInt(min) - 1;
+                    if (parseInt(min) == 0) {
+                        clearTimeout(tim);
+                        window.location.href = "result.html";
+                    }
+                    else {
+                        sec = 60;
+                        document.getElementById("showtime").innerHTML = "Your Left Time  is :" + min + " Minutes ," + sec + " Seconds";
+                        tim = setTimeout("f2()", 1000);
+                    }
+                }
+               
+            }
+        }
+    </script>
+</head>
+<body onload="f1()" >
+    <form id="form1" runat="server">
+    <div>
+      <table width="100%" align="center">
+        <tr>
+          <td colspan="2">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div id="starttime"></div><br />
+            <div id="endtime"></div><br />
+            <div id="showtime"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+             
+              <br />
+            
+              
+          </td>
+         
+        </tr>
+      </table>
+      <br />
+   
+
+    </div>
+    </form>
+</body>
+</html>
+<p class="lead">{{ question.content }}</p>
+
+{% if question.figure %}
+    <img src="{{ question.figure.url }}" alt="{{ question.content }}" />
+{% endif %}
+
+<form action="" method="POST">{% csrf_token %}
+  <input type=hidden name="question_id" value="{{ question.id }}">
+
+  <ul class="list-group">
+
+	{% for answer in form.answers %}
+	  <li class="list-group-item">
+	    {{ answer }}
+	  </li>
+	{% endfor %}
+
+  </ul>
+    {% if progress.0|add:1 == progress.1 %}
+    <input type="submit" value={% trans "Submit" %} class="btn btn-large btn-block btn-warning" >
+    {% else %}
+        <input type="submit" value={% trans "Next" %} class="btn btn-large btn-block btn-warning" >
+    {% endif %}
+</form>
+
+{% endif %}
+
+<hr>
+
+
+{% endblock %}

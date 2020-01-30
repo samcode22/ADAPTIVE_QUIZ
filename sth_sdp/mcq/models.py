@@ -1,5 +1,5 @@
 from django.db import models
-from quizzes.models import Question
+from quiz.models import Question
 
 ANSWER_ORDER_OPTIONS = (
     ('content', 'Content'),
