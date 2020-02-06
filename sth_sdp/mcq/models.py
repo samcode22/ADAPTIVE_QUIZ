@@ -4,7 +4,6 @@ from quiz.models import Question
 ANSWER_ORDER_OPTIONS = (
     ('content', 'Content'),
     ('none', 'None'),
-    # ('random', 'Random')
 )
 
 
@@ -29,8 +28,6 @@ class MCQQuestion(Question):
     def order_answers(self, queryset):
         if self.answer_order == 'content':
             return queryset.order_by('content')
-        # if self.answer_order == 'random':
-        #     return queryset.order_by('Random')
         if self.answer_order == 'none':
             return queryset.order_by('None')
 

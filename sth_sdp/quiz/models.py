@@ -411,7 +411,7 @@ class Sitting(models.Model):
         dividend = float(self.current_score)
         divisor = len(self._question_ids())
         if divisor < 1:
-            return 0            # prevent divide by zero error
+            return 0      
 
         if dividend > divisor:
             return 100

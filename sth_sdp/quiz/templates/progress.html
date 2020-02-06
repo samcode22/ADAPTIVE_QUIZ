@@ -10,14 +10,14 @@
 
   {% if cat_scores %}
 
-  <h1>{% trans "Question Category Scores" %}</h1>
+  <h1>{% trans "Cateory wise scoring" %}</h1>
 
-  <table class="table table-bordered table-striped">
+  <table class="table table-bordered">
 
 	<thead>
 	  <tr>
 		<th>{% trans "Category" %}</th>
-		<th>{% trans "Correctly answererd" %}</th>
+		<th>{% trans "Correct" %}</th>
 		<th>{% trans "Incorrect" %}</th>
 		<th>%</th>
 	  </tr>
@@ -47,18 +47,17 @@
 
   <hr>
 
-  <h1>{% trans "Previous exam papers" %}</h1>
+  <h1>{% trans "Previous test results" %}</h1>
   <p class="lead">
-	{% trans "Below are the results of exams that you have sat." %}
   </p>
 
-  <table class="table table-bordered table-striped">
+  <table class="table table-bordered">
 
 	<thead>
 	  <tr>
 		<th>{% trans "Quiz Title" %}</th>
 		<th>{% trans "Score" %}</th>
-		<th>{% trans "Possible Score" %}</th>
+		<th>{% trans "Out of" %}</th>
 		<th>%</th>
 	  </tr>
 	</thead>

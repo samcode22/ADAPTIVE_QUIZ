@@ -52,76 +52,7 @@
   <small class="muted">{% trans "Question category" %}:</small>
   <strong>{{ question.category }}</strong>
 </p>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <script language ="javascript" >
-        var tim;
-       
-        var min = 0;
-        var sec = 30;
-        var f = new Date();
-        function f1() {
-            f2();
-             
-          
-        }
-        function f2() {
-            if (parseInt(sec) > 0) {
-                sec = parseInt(sec) - 1;
-                document.getElementById("showtime").innerHTML = "Your Left Time  is :"+min+" Minutes ," + sec+" Seconds";
-                tim = setTimeout("f2()", 1000);
-            }
-            else {
-                if (parseInt(sec) == 0) {
-                    min = parseInt(min) - 1;
-                    if (parseInt(min) == 0) {
-                        clearTimeout(tim);
-                        window.location.href = "result.html";
-                    }
-                    else {
-                        sec = 60;
-                        document.getElementById("showtime").innerHTML = "Your Left Time  is :" + min + " Minutes ," + sec + " Seconds";
-                        tim = setTimeout("f2()", 1000);
-                    }
-                }
-               
-            }
-        }
-    </script>
-</head>
-<body onload="f1()" >
-    <form id="form1" runat="server">
-    <div>
-      <table width="100%" align="center">
-        <tr>
-          <td colspan="2">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div id="starttime"></div><br />
-            <div id="endtime"></div><br />
-            <div id="showtime"></div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-             
-              <br />
-            
-              
-          </td>
-         
-        </tr>
-      </table>
-      <br />
-   
 
-    </div>
-    </form>
-</body>
-</html>
 <p class="lead">{{ question.content }}</p>
 
 {% if question.figure %}
@@ -130,6 +61,7 @@
 
 <form action="" method="POST">{% csrf_token %}
   <input type=hidden name="question_id" value="{{ question.id }}">
+
 
   <ul class="list-group">
 
@@ -141,9 +73,35 @@
 
   </ul>
     {% if progress.0|add:1 == progress.1 %}
-    <input type="submit" value={% trans "Submit" %} class="btn btn-large btn-block btn-warning" >
+    <script>
+	setTimeout(
+	function show()
+	{
+	document.getElementById('demo').innerHTML=Date();
+	},100);
+   
+</script>
+<p>The question appears at </p>
+
+<p id="demo"></p>
+    <input type="submit" onclick="show()" value={% trans "Submit" %} class="btn btn-large btn-block btn-warning" >
+
     {% else %}
-        <input type="submit" value={% trans "Next" %} class="btn btn-large btn-block btn-warning" >
+    <script>
+	setTimeout(
+	function show()
+	{
+	document.getElementById('demo').innerHTML=Date();
+	},100);
+   
+</script>
+<p>The question appears at </p>
+
+<p id="demo"></p>
+            <input type="submit" onclick="show()" value={% trans "Next" %} class="btn btn-large btn-block btn-warning" >
+</a>
+
+
     {% endif %}
 </form>
 

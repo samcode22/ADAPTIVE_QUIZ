@@ -45,11 +45,9 @@
 
 	{% endif %}
 
-	<p>{% trans "Review the questions below and try the exam again in the future"%}.</p>
 
 	{% if user.is_authenticated %}
 
-	  <p>{% trans "The result of this exam will be stored in your progress section so you can review and monitor your progression" %}.</p>
 
 	{% endif %}
   </div>
@@ -84,9 +82,7 @@
       <p>{% trans "Your answer" %}: {{ question|answer_choice_to_string:question.user_answer }}</p>
       {% endif %}
 
-	  <p><strong>{% trans "Explanation" %}:</strong></p>
 	  <div class="well " style="background-color: #fcf8e3;">
-		<p>{{ question.explanation|safe }}</p>
 	  </div>
 
 	  <hr>

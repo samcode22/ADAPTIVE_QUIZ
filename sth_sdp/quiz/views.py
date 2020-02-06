@@ -79,6 +79,8 @@ class ViewQuizListByCategory(ListView):
         return queryset.filter(category=self.category, draft=False)
 
 
+
+
 class QuizUserProgressView(TemplateView):
     template_name = 'progress.html'
 
@@ -93,8 +95,7 @@ class QuizUserProgressView(TemplateView):
         context['cat_scores'] = progress.list_all_cat_scores
         context['exams'] = progress.show_exams()
         return context
-
-
+        
 class QuizMarkingList(QuizMarkerMixin, SittingFilterTitleMixin, ListView):
     model = Sitting
 

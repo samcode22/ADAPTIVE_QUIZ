@@ -12,8 +12,23 @@
 {% endif %}
 <p>{{ quiz.description }}</p>
 <p>
-  <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
+<script>
+	
+	function show()
+	{
+	document.getElementById('demo').innerHTML=Date();
+	}
+   
+</script>
+<p id="demo"></p>
+
+  <button type="button" onclick="show()"><a  href="{% url 'quiz_question' quiz_name=quiz.url %}" >
 	{% trans "Start quiz" %}
-  </a>
+  </a></button>
+
+
+          <br>
+
+
 </p>
 {% endblock %}
