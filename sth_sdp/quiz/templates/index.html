@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Trupti</h1>
+<h1>Hetvi</h1>
+<h1>Samyak</h1>
+{% if user.is_authenticated %}
+	<p>Welcome to the Adaptive Quiz Django Website</p> 
+    <p>Hello Username: {{user.username}}</p>
+    <p>Email: {{user.email}}</p>
+{% endif %}
+    
+{% endblock  %}
