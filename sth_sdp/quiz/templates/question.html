@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n%}
-
+import os
+from gtts import gTTS
 
 
 {% block title %} {{ quiz.title }} {% endblock %}
@@ -78,29 +79,55 @@
 	function show()
 	{
 	document.getElementById('demo').innerHTML=Date();
-	},100);
+	},1000);
    
 </script>
-<p>The question appears at </p>
+<p>The last question of quiz appears at time:  </p>
 
 <p id="demo"></p>
     <input type="submit" onclick="show()" value={% trans "Submit" %} class="btn btn-large btn-block btn-warning" >
 
     {% else %}
+<html>
     <script>
 	setTimeout(
 	function show()
 	{
 	document.getElementById('demo').innerHTML=Date();
-	},100);
+	},1000);
    
 </script>
-<p>The question appears at </p>
-
+<p>Current time is : </p>
 <p id="demo"></p>
-            <input type="submit" onclick="show()" value={% trans "Next" %} class="btn btn-large btn-block btn-warning" >
-</a>
+<p>You took time for last question: </p>
+<p id="demo3"></p>
+<p>Remarks:</p>
+<p id="demo2"></p>
+<input type="submit" onClick="onClickCheck();" value={% trans "Next" %} class="btn btn-large btn-block btn-warning" />
+</html>
+<script type="text/javascript">
+	var start = new Date().getTime();
+	var h = "Need to have speed to complete the test";
+	var d = "going good";
+	
 
+function onClickCheck() {
+	var elapsed = new Date().getTime() - start;
+
+    if(elapsed/1000 >= 6)
+    {
+    	document.getElementById('demo2').innerHTML=h;
+	}
+	else
+	{
+		 document.getElementById('demo2').innerHTML=d;
+
+	}
+
+            document.getElementById('demo3').innerHTML=elapsed/1000;
+    
+}
+</script>
 
     {% endif %}
 </form>

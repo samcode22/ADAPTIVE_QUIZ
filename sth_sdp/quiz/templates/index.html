@@ -1,13 +1,34 @@
 {% extends "base.html" %}
+{% load i18n %}
+
+{% load static %}
+{% load quiz_tags %}
+
+{% block title %}{% trans "All Quizzes" %}{% endblock %}
 
 {% block content %}
-<h1>Trupti</h1>
-<h1>Hetvi</h1>
-<h1>Samyak</h1>
+<html>
+<head>
+	<style>
+	body{
+		background-color: black;
+	}
+
+	#p1{
+		position: absolute;top: 590px; left: 20%; width: 100%;font-size: 60px;color: white;text-shadow: 4px 4px 4px red,
+             5px 5px 4px red;
+	}
+</style>
+</head>
+<div class="container">
+
+<img src = "{% static 'images/home1.jpg' %} " width=100% height=100%>
 {% if user.is_authenticated %}
-	<p>Welcome to the Adaptive Quiz Django Website</p> 
-    <p>Hello Username: {{user.username}}</p>
-    <p>Email: {{user.email}}</p>
-{% endif %}
+<p id="p1">Welcome to the Adaptive Quiz</p> 
     
+{% endif %}
+</div>
+</html>
+<style>
+</style>
 {% endblock  %}

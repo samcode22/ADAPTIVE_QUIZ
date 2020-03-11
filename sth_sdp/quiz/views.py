@@ -10,7 +10,10 @@ from .models import Quiz, Category, Progress, Sitting, Question
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from .forms import SignUpForm
 
 class QuizMarkerMixin(object):
     @method_decorator(login_required)
@@ -235,6 +238,10 @@ class QuizTake(FormView):
 
 
 
+class SignUpView(CreateView):
+        form_class = SignUpForm
+        success_url = reverse_lazy('login')
+        template_name = 'signup.html'
 
 def index(request):
     return render(request, 'index.html', {})

@@ -24,9 +24,15 @@
 			  <td>{{ quiz.title }}</td>
 			  <td>{{ quiz.category }}</td>
 			  <td>
+			  	{% if user.is_authenticated %}
+			  	<a  href="{% url 'quiz_question' quiz_name=quiz.url %}" >
+			  			{% trans "Start quiz" %}
+			  		</a>
 				<a href="{% url 'quiz_start_page' slug=quiz.url %}">
 				  {% trans "Go to Quiz" %}
 				</a>
+			          {% endif %}
+
 			</tr>
 
         {% endfor %}
