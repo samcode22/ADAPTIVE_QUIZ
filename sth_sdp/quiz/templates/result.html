@@ -34,6 +34,10 @@
 	  <small class="muted">{% trans "Exam title" %}: </small>
 	  <strong>{{ quiz.title }}</strong></p>
 
+<p class="lead">
+    {% trans "You started quiz on" %} {{ sitting.start }} {% trans "and ended on" %} {{ sitting.end }}, {% trans "Good progress" %} 
+  </p>
+
 	<p class="lead">
 	  {% trans "You answered" %} {{ score }} {% trans "questions correctly out of" %} {{ max_score }}, {% trans "giving you" %} {{ percent }} {% trans "percent correct" %}
 	</p>

@@ -10,16 +10,21 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
     crossorigin="anonymous">
- 
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'index' %}">Quiz Application</a>
-            {% if user.is_authenticated %}
+<body class="xyz" style="background: #2980B9;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-        <p class="navbar-brand">Welcome {{user.username}}</p>
-        {% endif %}
+
+">
+
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark" >
+
+    <a class="navbar-brand" href="{% url 'index' %}">Quizoid</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
       aria-expanded="false" aria-label="Toggle navigation">
@@ -27,31 +32,55 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav rm-auto">
-        <li class="nav-tem" style="color:gray">
+        <li class="nav-tem" style="color:gray;font-size:20px;">
+          <!--{% if user.is_authenticated %}
           <a href="{% url 'quiz_index' %}" class="nav-link">Quizzes</a>
-        </li>
+           {% endif %}
+        </li>-->
         {% if user.is_authenticated %}
 
-        <li class="nav-tem" style="color:gray">
-            <a href="{% url 'quiz_progress' %}" class="nav-link">Personal ScoreBoard</a>
+        <li class="nav-tem" style="color:gray;font-size:20px;">
+            <a href="{% url 'quiz_progress' %}" class="nav-link">Personal Scoreboard</a>
           </li>
         
         {% endif %}
 
       </ul>
+
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item ">
+         <li class="nav-item " style="color:gray;font-size:20px;">
+             {% if user.is_authenticated %}
+
+        <p class="navbar-brand"><i class="fa fa-user" style="font-size:36px;color:white"></i></p>
+        {% endif %}
+        </li>
+
+
+        <li class="nav-item " style="color:gray;font-size:20px;">
+             {% if user.is_authenticated %}
+
+        <p class="navbar-brand"style="margin-top:5px;color:gray">Welcome {{user.username}}</p>
+        {% endif %}
+        </li>
+
+        <li class="nav-item " style="color:gray;font-size:20px;">
           {% if user.is_authenticated %}
           <a class="nav-link" href="{% url 'logout' %}">logout</a>
           {% else %}
-          <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
+
           <a class="nav-link" href="{% url 'login' %}">Login</a>
           {% endif %}
         </li>
       </ul>
     </div>
-  </nav>
 
+  </nav>
+   {% if user.is_authenticated %}
+
+          {% else %}
+
+         <center><h1 style="font-family: 'Merriweather', serif;color:blue;margin-top:150px;">Welcome to the Quizoid..  </h1></center>
+          {% endif %}
 
 
   <div class="container">
@@ -63,6 +92,7 @@
     {% endfor %} {% endif %} {% block content %} {% endblock %}
 
   </div>
+
 
 
 

@@ -96,6 +96,8 @@ class QuizUserProgressView(TemplateView):
         context = super(QuizUserProgressView, self).get_context_data(**kwargs)
         progress, c = Progress.objects.get_or_create(user=self.request.user)
         context['cat_scores'] = progress.list_all_cat_scores
+        context['time'] = Sitting.start
+        context['timee'] = Sitting.end
         context['exams'] = progress.show_exams()
         return context
         
@@ -153,6 +155,9 @@ class QuizTake(FormView):
         if self.logged_in_user:
             self.sitting = Sitting.objects.user_sitting(request.user,
                                                         self.quiz)
+            
+
+
         if self.sitting is False:
             return render(request, 'single_complete.html')
 
