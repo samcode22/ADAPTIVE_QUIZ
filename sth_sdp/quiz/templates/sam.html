@@ -1,0 +1,37 @@
+<html>
+
+
+ <script>
+	setTimeout(
+	function show()
+	{
+	document.getElementById('demo1').innerHTML=Date();
+	},100);
+   
+</script>
+<p>The question appears at </p>
+
+<p id="demo"></p>
+<p id="demo1"></p>
+
+<input type="submit" onClick="onClickCheck();"></input>
+</html>
+<script type="text/javascript">
+	var lastClicked = 0;
+function onClickCheck() {
+	var x = new Date();
+	 var m = x.getSeconds();
+    var timeNow = x.getSeconds();
+
+    if (timeNow >= (lastClicked)) {
+        // Execute the link action
+            document.getElementById('demo').innerHTML=(timeNow-lastClicked);
+
+    }
+    else {
+        alert('Please wait at least 5 seconds between clicks!');
+    }
+
+    lastClicked = timeNow;
+}
+</script>

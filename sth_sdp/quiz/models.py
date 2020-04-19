@@ -10,6 +10,11 @@ from model_utils.managers import InheritanceManager
 import io
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.db.models import Count
+from django.db.models import Q
+from itertools import chain
+import random
+import logging
 
 
 class CategoryManager(models.Manager):
@@ -275,22 +280,59 @@ class Progress(models.Model):
         Finds the previous quizzes marked as 'exam papers'.
         Returns a queryset of complete exams.
         """
+
         return Sitting.objects.filter(user=self.user, complete=True)
 
     def __str__(self):
         return self.user.username + ' - '  + self.score
 
-
 class SittingManager(models.Manager):
 
     def new_sitting(self, user, quiz):
         if quiz.random_order is True:
-            question_set = quiz.question_set.all() \
-                                            .select_subclasses() \
-                                            .order_by('?')
+                    
+                    question_set1 = quiz.question_set.all() \
+                                                .filter(q_type = '1').order_by('?').select_subclasses() \
+
+                    question_set2 = quiz.question_set.all() \
+                                                .filter(q_type = '2').order_by('?').select_subclasses() \
+
+                    question_set3 = quiz.question_set.all() \
+                                                .filter(q_type = '3').order_by('?').select_subclasses() \
+
+
+
+                    a = question_set1
+                    b = question_set2
+                    c = question_set3
+                        #x = root[0]
+                        #y = root[1]
+                        #z = root[2]
+                    list4 = []
+                    list3 = []
+                    list2 = []
+                    list1=[a, b, c]
+                    for i in range(10):
+                        f =random.randint(0,2)
+                        if f not in list2: 
+                            list2.append(f)
+                    
+                    question_set = list(chain(list1[list2[0]],list1[list2[1]],list1[list2[2]]))
+                        
+                   
+                    
+
+                        
+
+                    #question_set = list(chain(question_set1,question_set2,question_set3))
+
+                    #question_set = (question_set1.filter(q_type = '1').order_by('?') )
+                     #question_set2.filter(q_type = '2').order_by('?') & question_set3.filter(q_type = '3').order_by('?')) \
+
         else:
-            question_set = quiz.question_set.all() \
-                                            .select_subclasses()
+                question_set = quiz.question_set.all() \
+                                            .order_by('?') \
+                                            .select_subclasses() 
 
         question_set = [item.id for item in question_set]
 
@@ -298,8 +340,8 @@ class SittingManager(models.Manager):
             raise ImproperlyConfigured('Question set of the quiz is empty. '
                                        'Please configure questions properly')
 
-        if quiz.max_questions and quiz.max_questions < len(question_set):
-            question_set = question_set[:quiz.max_questions]
+        #if quiz.max_questions and quiz.max_questions < len(question_set):
+         #   question_set = question_set[:quiz.max_questions]
 
         questions = ",".join(map(str, question_set)) + ","
 
@@ -313,6 +355,8 @@ class SittingManager(models.Manager):
                                   user_answers='{}')
         return new_sitting
 
+
+        
     def user_sitting(self, user, quiz):
         if quiz.single_attempt is True and self.filter(user=user,
                                                        quiz=quiz,
@@ -356,6 +400,10 @@ class Sitting(models.Model):
     incorrect_questions = models.CharField(validators=[validate_comma_separated_integer_list],
         max_length=1024, blank=True, verbose_name=_("Incorrect questions"))
 
+    q_type = models.IntegerField(blank=True, null=True,verbose_name=_("question type"))
+
+    q_time = models.IntegerField(default='0',verbose_name=_("question time"))
+   
     current_score = models.IntegerField(verbose_name=_("Current Score"))
 
     complete = models.BooleanField(default=False, blank=False,
@@ -520,11 +568,17 @@ class Question(models.Model):
                                  verbose_name=_("Category"),
                                  blank=True,
                                  null=True, on_delete=models.CASCADE)
+    q_type = models.IntegerField(verbose_name=_("question type"),blank=True, null=True)
+                                 
+    q_time = models.IntegerField(verbose_name=_("question time"),default='0')
 
     figure = models.ImageField(upload_to='uploads/%Y/%m/%d',
                                blank=True,
                                null=True,
                                verbose_name=_("Figure"))
+
+
+
 
     content = models.CharField(max_length=1000,
                                blank=False,

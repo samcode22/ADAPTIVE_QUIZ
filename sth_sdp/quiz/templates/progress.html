@@ -59,18 +59,21 @@
 		<th>{% trans "Score" %}</th>
 		<th>{% trans "Out of" %}</th>
 		<th>%</th>
+		<th>Exam_start</th>
+		<th>Exam_end</th>
 	  </tr>
 	</thead>
 
 	<tbody>
 
 	  {% for exam in exams %}
-
 	  <tr>
 		<td>{{ exam.quiz.title }}</td>
 		<td>{{ exam.current_score }}</td>
 		<td>{{ exam.get_max_score }}</td>
 		<td>{{ exam.get_percent_correct }}</td>
+		<td>{{ exam.start }}</td>
+		<td>{{ exam.end }}</td>
 	  </tr>
 
 	  {% endfor %}
@@ -78,7 +81,24 @@
 	</tbody>
 
   </table>
-
+<div class = "container">
+  <div class = "col-md-6">
+    <ul class="pager">
+      <span class="step-links">
+        {% if exams.has_previous %}
+        <li class="previous"> <a href="?page={{ exams.previous_page_number }}">Previous</a></li>
+        {% else %}
+        <li class="previous"> <a title = "No Posts available">Previous</a></li>
+        {% endif %}
+        {% if exams.has_next %}
+        <li class="next"><a href="?page={{ exams.next_page_number }}">Next</a></li>
+        {% else %}
+        <li class="next"><a title = "No Posts available">Next</a></li>
+        {% endif %}
+        </span>
+     </ul>
+  </div>
+</div>
   {% endif %}
 
 

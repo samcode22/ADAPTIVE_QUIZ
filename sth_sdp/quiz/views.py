@@ -10,7 +10,10 @@ from .models import Quiz, Category, Progress, Sitting, Question
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from .forms import SignUpForm
 
 class QuizMarkerMixin(object):
     @method_decorator(login_required)
@@ -93,6 +96,8 @@ class QuizUserProgressView(TemplateView):
         context = super(QuizUserProgressView, self).get_context_data(**kwargs)
         progress, c = Progress.objects.get_or_create(user=self.request.user)
         context['cat_scores'] = progress.list_all_cat_scores
+        context['time'] = Sitting.start
+        context['timee'] = Sitting.end
         context['exams'] = progress.show_exams()
         return context
         
@@ -150,6 +155,9 @@ class QuizTake(FormView):
         if self.logged_in_user:
             self.sitting = Sitting.objects.user_sitting(request.user,
                                                         self.quiz)
+            
+
+
         if self.sitting is False:
             return render(request, 'single_complete.html')
 
@@ -235,6 +243,10 @@ class QuizTake(FormView):
 
 
 
+class SignUpView(CreateView):
+        form_class = SignUpForm
+        success_url = reverse_lazy('login')
+        template_name = 'signup.html'
 
 def index(request):
     return render(request, 'index.html', {})

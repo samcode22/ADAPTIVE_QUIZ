@@ -61,7 +61,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class MCQuestionAdmin(admin.ModelAdmin):
     list_display = ('content', 'category', )
     list_filter = ('category',)
-    fields = ('content', 'category',
+    fields = ('content','q_type','q_time' , 'category',
               'figure', 'quiz', 'explanation', 'answer_order')
 
     search_fields = ('content', 'explanation')
