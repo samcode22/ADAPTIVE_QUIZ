@@ -23,7 +23,11 @@ This Project is on Random Quiz Generation in Django with DbSqlite which has foll
 10)Custom message displayed for those that pass or fail a quiz
 
 
+
+
+
 ->Migrations
+
 To run migrations.
 python manage.py makemigrations
 python manage.py migrate
@@ -40,6 +44,6 @@ python manage.py runserver
 ->References:
 1. https://www.djangoproject.com/start/
 2. https://stackoverflow.com/
-3. https://github.com/tomwalker
+3. github.com/tomwalker
 
 
