@@ -6,7 +6,7 @@ This Project is on Random Quiz Generation in Django with DbSqlite which has foll
 
 2)Time on each question can be provided by Admin.If user takes more time then remarks are shown after each question for speeding up.
 
-3)Text to Speech facility on Questions and Options of the quiz.
+3)Text to Speech facility on Questions and Options of the quiz using gTTS protocol.
 
 4)Correct answers are shown at once at the end
 
